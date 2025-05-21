@@ -52,7 +52,7 @@ with col[0]:
     # Columna 0
 
     # Grafico 1
-    st.title('Frecuencia de Métodos de Pago')
+    st.subheader('Frecuencia de Métodos de Pago')
 
     # Conteo de elementos repetidos en la columna payment
     payment_counts = dfFiltrado['Payment'].value_counts()
@@ -63,11 +63,12 @@ with col[0]:
         y='Frequency',
         x_label='Método de Pago',
         y_label='Frecuencia',
-        use_container_width=True
+        use_container_width=True,
+
     )
 
     # Grafico 2
-    st.title('Distribución del Gasto Total por Tipo de Cliente')
+    st.subheader('Distribución del Gasto Total por Tipo de Cliente')
 
     chart = alt.Chart(dfFiltrado).mark_boxplot().encode(
         x=alt.X('Customer type', axis=alt.Axis(title='Tipo de Cliente')),
@@ -75,7 +76,7 @@ with col[0]:
         tooltip=[
         alt.Tooltip('Customer type', title='Tipo de Cliente'),
         alt.Tooltip('Total', title='Gasto Total')
-    ]).properties(title='Distribución del Gasto Total por Tipo de Cliente').interactive()
+    ]).interactive()
 
     st.altair_chart(chart, use_container_width=True)
 
@@ -84,7 +85,7 @@ with col[1]:
     # Columna 1
 
     # Grafico 3
-    st.title('Variación de Ventas Totales a lo Largo del Tiempo')
+    st.subheader('Variación de Ventas Totales a lo Largo del Tiempo')
     # dataframe filtrado agrupado por fecha y sumando los totales
     ventasPorFecha = dfFiltrado.groupby('Date')['Total'].sum().reset_index()
 
@@ -98,7 +99,7 @@ with col[1]:
     )
 
     # Grafico 4
-    st.title('Total de ventas por línea de producto')
+    st.subheader('Total de ventas por línea de producto')
 
     # Calculo del total de ventas por linea de producto
     ingresoPorProducto = dfFiltrado.groupby('Product line')['Total'].sum().reset_index()
@@ -117,7 +118,7 @@ with col[2]:
 # Columna 2
 
 # Grafico 5
-    st.title('Ingreso bruto por sucursal y linea de producto')
+    st.subheader('Ingreso bruto por sucursal y linea de producto')
 
     # df agrupado por sucursal, linea de producto, y la suma de los ingresos brutos
     df_grouped = dfFiltrado.groupby(['Branch', 'Product line'])['gross income'].sum().reset_index()
@@ -139,5 +140,5 @@ with col[2]:
     st.altair_chart(chart, use_container_width=True)
 
 # Dataframe con capacidades de filtrado
-st.title('Ventas realizadas')
+st.subheader('Ventas realizadas')
 st.dataframe(dfFiltrado)
